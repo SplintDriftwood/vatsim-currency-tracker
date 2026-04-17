@@ -22,21 +22,22 @@ const DEFAULT_FLY = {
 };
 
 // ── VATSIM API proxy ──────────────────────────────────────────
-// The VATSIM API does not send CORS headers, so direct browser
-// requests are blocked when served from a remote origin (e.g.
-// GitHub Pages).
+// The VATSIM API sends no CORS headers, so all browser requests
+// are blocked regardless of origin. A proxy is always required.
 //
-// For LOCAL development via Live Server:
-//   Leave PROXY as "" — the browser allows direct API calls
-//   from localhost without CORS restrictions.
+// LOCAL DEVELOPMENT
+//   Run the local proxy alongside Live Server:
+//     node proxy.js
+//   Then set PROXY to the local proxy address below.
 //
-// For GitHub Pages (shared / production):
-//   Set PROXY to your Cloudflare Worker URL.
-//   Example: "https://vatsim-proxy.YOUR-SUBDOMAIN.workers.dev"
-//   No trailing slash.
+// GITHUB PAGES (production / shared)
+//   Deploy the Cloudflare Worker (see PROXY_SETUP.md) and set
+//   PROXY to your worker URL instead.
+//
+// Switch between the two by commenting/uncommenting:
 
-const PROXY = "";
+const PROXY = "http://localhost:8787";           // local dev
+// const PROXY = "https://YOUR-WORKER.workers.dev"; // production
 
-// Builds the full request URL, routing through the proxy if set.
-const API = (path) =>
-  PROXY ? `${PROXY}${path}` : `https://api.vatsim.net${path}`;
+// Builds the full request URL via the proxy.
+const API = (path) => `${PROXY}${path}`;
