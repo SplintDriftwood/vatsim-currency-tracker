@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VATSIM Currency Tracker</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/main.css">
+
+  <!-- React & Babel (in-browser JSX compilation) -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!--
+    Scripts load in dependency order.
+    All share the same browser scope via type="text/babel",
+    so anything defined in an earlier file is available in later ones.
+  -->
+
+  <!-- 1. Constants, defaults, proxy config -->
+  <script type="text/babel" src="js/config.js"></script>
+
+  <!-- 2. IndexedDB storage layer -->
+  <script type="text/babel" src="js/db.js"></script>
+
+  <!-- 3. VATSIM API calls -->
+  <script type="text/babel" src="js/api.js"></script>
+
+  <!-- 4. Data helpers, aircraft families, currency calculations -->
+  <script type="text/babel" src="js/data.js"></script>
+
+  <!-- 5. React components (shared atoms + feature cards) -->
+  <script type="text/babel" src="js/components.js"></script>
+
+  <!-- 6. App root — must be last -->
+  <script type="text/babel" src="js/app.js"></script>
+</body>
+</html>
